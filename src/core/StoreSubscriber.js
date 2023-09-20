@@ -10,7 +10,7 @@ export class StoreSubscriber {
   subscribeComponents(components) {
     this.prevState = this.store.getState();
 
-    this.store.subscribe((state) => {
+    this.sub = this.store.subscribe((state) => {
       Object.keys(state).forEach((key) => {
         if (!isEqual(this.prevState[key], state[key])) {
           components.forEach((component) => {
@@ -23,6 +23,10 @@ export class StoreSubscriber {
       });
 
       this.prevState = this.store.getState();
+
+      if (process.env.NODE_ENV === "production") {
+        window["redux"] = this.prevState;
+      }
     });
   }
 

@@ -5,6 +5,7 @@ import {
   APPLE_STYLE,
   CHANGE_STYLES,
   CHANGE_TITLE,
+  UPDATE_DATE,
 } from "./types";
 
 // Pure Function
@@ -40,6 +41,9 @@ export function rootReducer(state, action) {
     case CHANGE_TITLE:
       field = "title";
       return { ...state, [field]: action.data };
+    case UPDATE_DATE:
+      field = "date";
+      return { ...state, [field]: Date.now() };
 
     default:
       return state;
