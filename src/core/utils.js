@@ -1,3 +1,5 @@
+import { ActiveRoute } from "./routes/ActiveRoute";
+
 export function capitalize(string) {
   if (typeof string !== "string") return;
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -30,6 +32,14 @@ export function storage(key, data = null) {
     return JSON.parse(localStorage.getItem(key));
   }
   localStorage.setItem(key, JSON.stringify(data));
+}
+
+export function createTableHash() {
+  const newHash = Date.now().toString();
+  if (ActiveRoute.path.includes("excel")) {
+    ActiveRoute.navigate(`excel/${newHash}`);
+  }
+  return newHash;
 }
 
 export function preventDefault(event) {
